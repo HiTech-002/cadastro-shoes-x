@@ -11,7 +11,7 @@
       "src": "(.*)",
       "dest": "/servidor.js"
     },
-    { "src": "/manda", "dest": "servidor.js" }
+    { "src": "/manda", "dest": "/servidor.js" }
   ]
 }
   
