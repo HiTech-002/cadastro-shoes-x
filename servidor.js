@@ -22,13 +22,20 @@ const client = new Client({
   // Rota para pegar os dados
 
   app.post("/manda", async (req, res) => {
-    let body = req.body;
-    let { nome, senha, local, telefone, texto, plano }=body
-    console.log(nome);
-    res.send('Recebido com sucesso!');
-    let comando=`INSERT INTO pedido_cadastro (nome_loja, senha, localizacao, visualizacao, telefone,informacao, plano) VALUES ('${nome}','${senha}','${local}',false,${telefone},'${texto}','${plano}')`
-    await client.query(comando)
-    console.log(comando)
-});
+    try {
+      const { nome, senha, local, telefone, texto, plano } = req.body;
+      const comando = `INSERT INTO pedido_cadastro (nome_loja, senha, localizacao, visualizacao, telefone, informacao, plano) VALUES ($1, $2, $3, false, $4, $5, $6)`;
+      const valores = [nome, senha, local, telefone, texto, plano];
+  
+      await client.query(comando, valores);
+      console.log("Dados inseridos com sucesso:", valores);
+  
+      res.send("Recebido com sucesso!");
+    } catch (err) {
+      console.error("Erro ao inserir no banco:", err);
+      res.status(500).send("Erro ao inserir no banco");
+    }
+  });
+  
 
 export default app
