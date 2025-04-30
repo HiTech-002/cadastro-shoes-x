@@ -23,12 +23,12 @@ const client = new Client({
 
   app.post("/manda", async (req, res) => {
     let body = req.body;
-    let { nome, senha, local, telefone, texto }=body
+    let { nome, senha, local, telefone, texto, plano }=body
     console.log(nome);
     res.send('Recebido com sucesso!');
-    let comando=`INSERT INTO pedido_cadastro (nome_loja, senha, localizacao, visualizacao, telefone,informacao) VALUES ('${nome}','${senha}','${local}',false,${telefone},'${texto}')`
+    let comando=`INSERT INTO pedido_cadastro (nome_loja, senha, localizacao, visualizacao, telefone,informacao, plano) VALUES ('${nome}','${senha}','${local}',false,${telefone},'${texto}','${plano}')`
     await client.query(comando)
+    console.log(comando)
 });
 
-//app.listen(4000)
 export default app
